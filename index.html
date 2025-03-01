@@ -618,8 +618,8 @@ https://templatemo.com/tm-588-ebook-landing
                         <div class="col-lg-5 col-md-10 col-12 mb-5 mb-lg-0">
                             <form id="google-form" class="custom-form ebook-download-form bg-white shadow p-4 rounded">
                                 <div class="text-center mb-4">
-                                    <small class="text-muted">Still not sure about changing your life this year?</small>
-                                    <h2 class="mb-3">Subscribe to our newsletter</h2>
+                                    <h2 class="mb-3">Got a special request?</h2>
+                                    <small class="text-muted">I'm sure we have it, but please shoot your shot</small>
                                 </div>
             
                                 <div class="ebook-download-form-body">
@@ -637,6 +637,11 @@ https://templatemo.com/tm-588-ebook-landing
                                         <input type="email" id="email" name="email" class="form-control" placeholder="Your Email Address" required>
                                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     </div>
+
+                                    <div class="input-group mb-3">
+                                        <textarea id="message" name="message" class="form-control" placeholder="Your Message" rows="3"></textarea>
+                                        <span class="input-group-text"><i class="bi bi-chat-text"></i></span>
+                                    </div>
             
                                     <div class="text-center">
                                         <small style="font-size: xx-small;" class="text-muted">After clicking the subscribe button, please wait for 10 secs.</small>
@@ -649,33 +654,30 @@ https://templatemo.com/tm-588-ebook-landing
                         </div>
             
                         <script>
-                        document.getElementById("google-form").addEventListener("submit", function(event) {
-                            event.preventDefault(); // Prevent default form submission
-                        
-                            let formData = new FormData();
-                            formData.append("name", document.getElementById("name").value);
-                            formData.append("phone", document.getElementById("phone").value);
-                            formData.append("email", document.getElementById("email").value);
-                        
-                            fetch("https://script.google.com/macros/s/AKfycbyYJFRTE_6wpFEQl9sjDGHT8miY7AZcX18wfMgBaKI1ZRJcr0JZ8O8k22fIN5LOEWQoNA/exec", { // Replace with your Web App URL
-                                method: "POST",
-                                body: formData
-                            }).then(response => response.text())
-                            .then(data => {
-                                document.getElementById("form-message").innerHTML = 
-                                    "<p class='text-success'>Thank you! Your submission has been received.</p>";
-                                document.getElementById("google-form").reset();
-                            }).catch(error => {
-                                document.getElementById("form-message").innerHTML = 
-                                    "<p class='text-danger'>Oops! Something went wrong.</p>";
+                            document.getElementById("google-form").addEventListener("submit", function(event) {
+                                event.preventDefault(); // Prevent default form submission
+                            
+                                let formData = new URLSearchParams();
+                                formData.append("name", document.getElementById("name").value);
+                                formData.append("phone", document.getElementById("phone").value);
+                                formData.append("email", document.getElementById("email").value);
+                                formData.append("message", document.getElementById("message").value);
+                            
+                                fetch("https://script.google.com/macros/s/AKfycbyhDvdplWZE3mXHee3VD77GWTtqLOP5tf1n8Yg1poC32jljH-sRtz34WK-wcFDUAzU61w/exec", { // Replace with your Web App URL
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                                    body: formData
+                                }).then(response => response.text())
+                                  .then(data => {
+                                      document.getElementById("form-message").innerHTML = 
+                                          "<p class='text-success'>Thank you! Your submission has been received.</p>";
+                                      document.getElementById("google-form").reset();
+                                  }).catch(error => {
+                                      document.getElementById("form-message").innerHTML = 
+                                          "<p class='text-danger'>Oops! Something went wrong.</p>";
+                                  });
                             });
-                        });
                         </script>
-            
-
-
-
-
             
                         <!-- Calendly Widget -->
                         <div class="col-lg-4 col-md-10 col-12 d-flex justify-content-center">
@@ -712,10 +714,8 @@ https://templatemo.com/tm-588-ebook-landing
                                     <a href="https://wa.link/ji9bur" class="social-icon-link bi-whatsapp"></a>
                                 </li>
                             </ul>
-
                             <p class="copyright-text">Copyright © The Lapis Blue</p>
                         </div>
-            
                     </div>
                 </div>
             </section>
